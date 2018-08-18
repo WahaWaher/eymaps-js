@@ -62,6 +62,8 @@
 
 			});
 
+			return $(this);
+
 		},
 
 		destroy: function() {
@@ -77,7 +79,7 @@
 					 .removeData()
 					 .children().remove();
 
-			return this;
+			return $(this);
 
 		},
 
@@ -92,7 +94,7 @@
 				methods.init.call($ths, newOpts);
 			else methods.init.call($ths, oldOpts);
 
-			return this;
+			return $(this);
 
 		},
 
@@ -168,7 +170,7 @@
 
 			};
 
-			return $ths;
+			return $(this);
 
 		},
 

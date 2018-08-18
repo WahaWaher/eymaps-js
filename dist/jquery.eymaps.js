@@ -1,6 +1,6 @@
 /**
  * jQuery.eyMaps
- * Version: 1.0.0
+ * Version: 1.0.1
  * Repo: https://github.com/WahaWaher/eymaps-js
  * Author: Sergey Kravchenko
  * Contacts: wahawaher@gmail.com
@@ -71,6 +71,8 @@
 
 			});
 
+			return $(this);
+
 		},
 
 		destroy: function() {
@@ -86,7 +88,7 @@
 					 .removeData()
 					 .children().remove();
 
-			return this;
+			return $(this);
 
 		},
 
@@ -101,7 +103,7 @@
 				methods.init.call($ths, newOpts);
 			else methods.init.call($ths, oldOpts);
 
-			return this;
+			return $(this);
 
 		},
 
@@ -177,7 +179,7 @@
 
 			};
 
-			return $ths;
+			return $(this);
 
 		},
 
