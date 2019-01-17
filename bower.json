@@ -1,6 +1,13 @@
 {
   "name": "eymaps-js",
-  "version": "1.0.1",
+  "version": "2.0.0",
+  "description": "jQuery-плагин, позволяющий добавлять Яндекс карты более простым и оптимальным способом",
+  "main": "index.js",
+	"authors": [
+    "WahaWaher"
+  ],
+  "license": "MIT",
+  "homepage": "http://wahawaher.ru/eymaps-js/",
   "ignore": [
     "node_modules",
     "demo/libs"

@@ -1,195 +1,291 @@
 ;(function($) {
 
-	var methods = {
+	/**
+	 * Настройки по умолчанию
+	 *
+	 * @default
+	 */
+	var defaults = {
 
-		init: function(options) {
+		api: 'https://api-maps.yandex.ru/2.1/?lang=ru_RU',
+		zoomAfter: 'click',
+		event: false,
+		placemarkDefaults: {},
 
-			var defaults = $.extend(true, {
+		map: { center: [], zoom: 5 },
+		placemark: [
+			{ geometry: [], properties: {}, options: {} }
+		]
 
-				api: 'https://api-maps.yandex.ru/2.1/?lang=ru_RU', // Ссылка на Yandex Map API
-				zoomAfter: 'click', // Разрешает зум карты только по опр. событию на эл-те карты 
-				event: false, // Подгрузка карты по событию.
-				placemarkDefaults: {}, // Опции поумолчанию для всех меток
+	};
 
-				beforeInit: function() {}, // Перед началом инициализации.
-				beforeLoad: function() {}, // До загрузки карты.
-				afterLoad:  function() {}, // По окончанию загрузки карты.
+	/**
+	 * Конструктор
+	 *
+	 * @constructor
+	 * @param {HTMLElement} el - HTML-элемент в DOM
+	 * @param {Object=} options - Объект с параметрами
+	 */
+	var EyMaps = function(el, options) {
+		this.it = el;
+		this.init(options);
+	}, __, meth = EyMaps.prototype;
 
-				map: { center: [], zoom: 5 },
-				placemark: [
-					{ geometry: [], properties: {}, options: {} }
-				],
+	/**
+	 * Инициализация
+	 *
+	 * @public
+	 * @param {object={}} options - Объект с параметрами
+	 * @example
+	 * 
+	 * $(element).eyMaps('init', {});
+	 * $(element).eyMaps('init');
+	 */
+	meth.init = function(options) {
+		var _ = this, it = _.it, $it = $(it), sets;
 
-			}, $.fn.eyMaps.defaults);
+		if( _.inited === true ) return;
 
-			this.each(function() {
-				var $ths = $(this);
+		// console.log( 'Метод: Init', arguments, _ );
 
-				if( $ths.data('_init') == true ) return false;
+		// Настройки: По умолчанию
+		_.defaults =  $.extend(true, {}, defaults, $.fn.eyMaps.defaults);
+		// Настройки: Пользовательские
+		_.options = options || {};
+		// Настройки: Data-атрибут
+		_.dataOptions = $it.data('eymaps') || {};
+		// Настройки: Объединенные
+		_.settings = sets = $.extend(true, {}, _.defaults, _.options, _.dataOptions);
 
-				$ths.data('defaults', defaults);
-				$ths.data('options', options);
+		_.nsid = __.getRndNum(10000, 99999);
+		_.nspc = 'eym-' + _.nsid;
+		_.mpid = 'eymaps-id-' + _.nsid;
+		_.map = {};
 
-				var data = $ths.attr('data-eymaps');
-				data = eval('(' + data + ')');
-				if( typeof(data) != 'object') data = {};
+		// Событие: 'beforeInit'
+		$it.trigger('beforeInit.eym', [_]);
 
-				$ths.data('settings', $.extend(true, {}, defaults, options, data));
-				var sets = $ths.data('settings');
+		// Доб. класс контейнеру
+		$it.addClass('eymaps');
 
-				// Callback: beforeInit()
-				sets.beforeInit.call($ths, sets);
+		// Если у элемента отсутствует ID - генер./добавл.
+		if( !$it.attr('id') ) $it.attr('id', _.mpid);
+		else _.mpid = $it.attr('id');
 
-				// Доб. класс контейнеру
-				$ths.addClass('eymaps');
+		// Загрузка по событию/автозагрузка карты
+		sets.event ? $it.one( sets.event + '.' + _.nspc, function() {
+			_.load.call(_);
+		}) : _.load.call(_);
 
-				// Если у элемента отсутствует ID - генер./добавл.
-				sets._mid;
-				if( !$ths.attr('id') ) {
-					sets._mid = 'eymaps-mid-' + randInt(0, 100000);
-					$ths.attr('id', sets._mid);
-				} else sets._mid = $ths.attr('id');
+		// Плагин инициализирован
+		_.inited = true;
 
-				// ID для генерации уник. пространства имен
-				sets._nsid = randInt(10000000, 100000000);
+		// Событие: 'afterInit'
+		$it.trigger('afterInit.eym', [_]);
+		
+	};
 
-				// Загрузка по событию/автозагрузка карты
-				sets.event ? $ths.one( sets.event + '.eym-' + sets._nsid, function() {
-					methods.load.call($ths);
-				}) : methods.load.call($ths);
+	/**
+	 * Загружает карту 
+	 *
+	 * @public
+	 */
+	meth.load = function() {
+		var _    = this,
+			 $it = $(_.it),
+			 sets = _.settings,
 
-				$ths.data('_init', true);
+			 apiScript = $('script[src="'+ sets.api +'"]');
 
+		// console.log( 'Метод: Load', arguments );
+
+		// Скрипт API есть на странице и полностью загружен - загрузка карты
+		if( apiScript.length && typeof(ymaps) === 'object' ) {
+
+			_.loadMAP();
+
+		// Скрипт API есть на странице, но не полностью загружен - загрузка карты после загрузки скрипта
+		} else if( apiScript.length && typeof(ymaps) !== 'object' ) {
+			
+			
+			apiScript.on('load', function() {
+				_.loadMAP.call(_);
 			});
 
-			return $(this);
 
-		},
+		// Загрузка скрипта и загрузка карты
+		} else {
 
-		destroy: function() {
+			_.loadAPI(sets.api, function() {
+				_.loadMAP.call(_);
+			});
 
-			if( !$(this).data('_init') ) return false;
-			var $ths = $(this), sets = $ths.data('settings');
+		}
 
-				if( $ths.attr('id') == sets._mid && $ths.attr('id').match(/-mid-/igm) )
-					$ths.removeAttr('id');
+	};
 
-				$ths.removeClass('eymaps')
-					 .off( sets.event + '.eym-' + sets._nsid )
-					 .removeData()
-					 .children().remove();
+	/**
+	 * Загрузка Yandex MAP API на страницу
+	 *
+	 * @public
+	 */
+	meth.loadAPI = function(api, cb) {
+		var _    = this,
+			 $it = $(_.it),
+			 sets = _.settings,
 
-			return $(this);
+			 yaScript = $('<script/>').attr('src', api || sets.api).get(0);
 
-		},
+		// console.log( 'Метод: loadAPI', arguments );
 
-		reinit: function(newOpts) {
+		document.body.appendChild(yaScript);
 
-			var $ths = $(this), sets = $ths.data('settings');
+		yaScript.onload = function() {
+			if( typeof cb == 'function' ) cb();
+		};
 
-			var oldOpts = $ths.data('options');
-			methods.destroy.call($ths);
 
-			if( newOpts && typeof(newOpts) == 'object' )
-				methods.init.call($ths, newOpts);
-			else methods.init.call($ths, oldOpts);
+	};
 
-			return $(this);
 
-		},
+	/**
+	 * Загрузка Yandex MAP на страницу
+	 *
+	 * @public
+	 */
+	meth.loadMAP = function() {
+		var _    = this,
+			 $it = $(_.it),
+			 sets = _.settings;
 
-		load: function() {
-			
-			var $ths = this, sets = $ths.data('settings');
+		if( _.it.firstChild != null  ) return;
 
-			if( !sets ) return false;
+		// console.log( 'Метод: loadMAP', arguments );
+		
+		// Если карта еще не подгружена - загружаем
+		ymaps.ready(function () {
 
-			// ОСНОВНАЯ ПРОВЕРКА ПЕРЕД ЗАГРУЗКОЙ
-			var apiScript = $('script[src="'+ sets.api +'"]');
+			// Событие: 'beforeLoad'
+			$it.trigger('beforeLoad.eym', [_]);
 
-			if( apiScript.length && typeof(ymaps) === 'object' ) {
+			// (sets.map) Объект с осн. (коорд, зум)
+			_.map = new ymaps.Map(_.mpid, sets.map);
 
-				// Скрипт API есть на странице и полностью загружен - загрузка карты
-				loadYaMap();
-
-			} else if( apiScript.length && typeof(ymaps) !== 'object' ) {
-				
-				// Скрипт API есть на странице, но не полностью загружен - загрузка карты после загрузки скрипта
-				apiScript.on('load', loadYaMap);
-
-			} else {
-
-				// Загрузка скрипта и загрузка карты
-				loadYaApi(sets.api, loadYaMap);
-
+			// Зум // sets.zoomAfter
+			if( sets.zoomAfter ) {
+				_.map.behaviors.disable('scrollZoom');
+				_.map.container._parentElement.addEventListener(sets.zoomAfter, function () {
+					if( !_.map.behaviors.isEnabled('scrollZoom') ) _.map.behaviors.enable('scrollZoom');
+				});
 			}
 
-		   // ОТРИСОВКА КАРТЫ
-		   function loadYaMap() {
+			// Метки // sets.placemark 
+			if ( typeof(sets.placemark[0].geometry) === 'object' && sets.placemark[0].geometry.length === 2) {
+				$.each(sets.placemark, function (key, value) {
+					var placemark = new ymaps.Placemark(value.geometry, value.properties, $.extend( {}, sets.placemarkDefaults, value.options ));
+					_.map.geoObjects.add(placemark);
+				});
+			}
 
-		   	// Если карта еще не подгружена - загружаем
-		   	if( $ths.get(0).firstChild == null ) {
-				   ymaps.ready(function () {
+			// Событие: 'afterLoad'
+			$it.trigger('afterLoad.eym', [_, _.map]);
 
-				   	// Callback: beforeLoad()
-				   	sets.beforeLoad.call($ths, sets);
-
-				   	// (sets.map) Объект с осн. (коорд, зум)
-				   	var map = new ymaps.Map(sets._mid, sets.map);
-
-				   	// Зум // sets.zoomAfter
-				   	if( sets.zoomAfter ) {
-				   		map.behaviors.disable('scrollZoom');
-							map.container._parentElement.addEventListener(sets.zoomAfter, function () {
-								if( !map.behaviors.isEnabled('scrollZoom') ) map.behaviors.enable('scrollZoom');
-							});
-				   	}
-
-				   	// Метки // sets.placemark 
-				   	if ( typeof(sets.placemark[0].geometry) === 'object' && sets.placemark[0].geometry.length === 2) {
-							$.each(sets.placemark, function (key, value) {
-								var placemark = new ymaps.Placemark(value.geometry, value.properties, $.extend( {}, sets.placemarkDefaults, value.options ));
-								map.geoObjects.add(placemark);
-								option1 = {};
-							});
-				   	}
-
-				   	// Callback: afterLoad()
-				   	sets.afterLoad.call($ths, sets);
-
-				   });
-			   }
-		   };
-
-			// ЗАГРУЗКА API
-			function loadYaApi(api, lymCb) {
-
-				var yaScript = $('<script/>').attr('src', api).get(0);
-				document.body.appendChild(yaScript);
-				yaScript.onload = function() { if( lymCb ) lymCb() };
-
-			};
-
-			return $(this);
-
-		},
+		});
 
 	};
 
-	// Функция для генерации случаного числа
-	function randInt( min, max ) {
-		var rand = min - 0.5 + Math.random() * (max - min + 1)
-		rand = Math.round( rand );
-		return rand;
-	}
 
-	$.fn.eyMaps = function(methOrOpts) {
-		if ( methods[methOrOpts] ) {
-			return methods[ methOrOpts ].apply( this, Array.prototype.slice.call( arguments, 1 ));
-		} else if ( typeof methOrOpts === 'object' || ! methOrOpts ) {
-			methods.init.apply( this, arguments );
-			return this;
-		} else $.error( 'Method ' +  methOrOpts + ' does not exist on jQuery.eyMaps' );
+	/**
+	 * Деинициализация
+	 *
+	 * @public
+	 * @example
+	 * 
+	 * $(element).eyMaps('destroy');
+	 */
+	meth.destroy = function() {
+		var _ = this,
+			 $it = $(_.it);
+
+		if( !_.inited ) return;
+
+		// console.log( 'Метод: Destroy', arguments );
+
+		if( $it.attr('id') == _.mpid && $it.attr('id').match(/eymaps\-id/igm) )
+			$it.removeAttr('id');
+
+		$it.removeClass('eymaps')
+			.off( _.settings.event + '.' + _.nspc )
+			.empty();
+
+		delete _.it.EyMaps;
+
 	};
+
+	/**
+	 * Реинициализация
+	 *
+	 * @public
+	 * @param {object=} newSets - Объект с новыми параметрами
+	 * @example
+	 * 
+	 * $(element).eyMaps('reinit');
+	 * $(element).eyMaps('reinit', {});
+	 */
+	meth.reinit = function(newSets) {
+		var _ = this,
+			 $it = _.it,
+			 sets = (typeof newSets == 'object' && Object.keys(newSets).length != 0 )
+					  ? newSets : $.extend(true, {}, _.settings);
+
+		// console.log( 'Метод: Reinit' );
+
+		_.destroy();
+		$(_.it).eyMaps(sets);
+
+	};
+
+	__ = {
+		/**
+		 * Генерирует случайное число
+		 *
+		 * @private
+		 * @param {Number} min - от
+		 * @param {Number} max - до
+		 */
+		getRndNum: function(min, max) {
+			return Math.round(min - 0.5 + Math.random() * (max - min + 1));
+		}
+	};
+
+	$.fn.eyMaps = function() {
+
+		var pn = 'EyMaps',
+			 args = arguments,
+			 mth = args[0];
+
+		$.each(this, function(i, it) {
+			if( typeof mth == 'object' || typeof mth == 'undefined' )
+				it[pn] = crtInst(it, mth);
+			else if( mth === 'init' || mth === 'reinit' )
+				it[pn] ? getMeth(it, mth, args) : it[pn] = crtInst(it, args[1]);
+			else getMeth( it, mth, args );
+		});
+
+		function getMeth(it, mth, args) {
+			if( !(it[pn] instanceof EyMaps) ) return;
+			if( !(mth in it[pn]) ) return;
+			return it[pn][mth].apply(it[pn], Array.prototype.slice.call(args, 1));
+		};
+
+		function crtInst(it, mth) {
+			if( it[pn] instanceof EyMaps ) return;
+			return new EyMaps(it, mth);
+		};
+
+		return this;
+	};
+
+	$.fn.eyMaps.defaults = defaults;
 
 })(jQuery);

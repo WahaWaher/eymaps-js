@@ -1,22 +1,31 @@
-jQuery EyMaps Plugin <sup>1.0.1</sup>
--------
-_Плагин позволяет добавлять неограниченное число Яндекс карт без указания API наиболее простым и оптимальным способом (с точки зрения скорости загрузки сайта и удобного использования)._
 
-* "API Яндекс.Карт" загружается на страницу однократно и только, если на ней выводится карта.
-* Экономия трафика. Загрузка карты (вместе со скриптом "API Яндекс.Карт") по JS-событию (click, mouseover и т.д.).
-* Возможность запретить зум карты до возникновения JS-события на ней (click, mouseover и т.д.) (Карта не мешает скроллу колесиком выши, если она на всю ширину страницы)
-* Гибкие опции, большинство из которых идентичны опциям "JavaScript API Яндекс.Карт".
-* Возможность задавать новые/переопределять опции через data-атрибуты
+jQuery EyMaps Plugin <sup>2.0.0</sup>
+-------
+_**jQuery-плагин**, позволяющий добавлять **Яндекс карты**  
+более простым и оптимальным способом._
+
+* "API Яндекс.Карт" загружается на страницу однократно и только, если на ней выводится карта
+* Экономия трафика. Загрузка карты (вместе со скриптом "API Яндекс.Карт") по JS-событию (click, mouseover и т.д.)
+* Возможность запретить зум карты до возникновения JS-события на ней (click, mouseover и т.д.) (Карта не мешает скроллу колесиком мыши, если она на всю ширину страницы)
+* Гибкие опции, большинство из которых идентичны опциям "JavaScript API Яндекс.Карт"
+* Возможность задавать новые/переопределять опции через Data-атрибуты
+
+<br>
+
+[Демо](http://wahawaher.ru/eymaps-js#demo) | [Документация](http://wahawaher.ru/eymaps-js)
 
 ## Пакетные менеджеры:
 ```sh
 # Bower
 bower install --save eymaps-js
+
+# NPM
+npm install --save eymaps-js
 ```
 
 ## Подключение:
 
-**1. Подключить jQuery и jquery.eymaps.js:**
+1. Подключить **jQuery** и **jquery.eymaps.js**:
 ```html
 <!-- jQuery -->
 <script src="libs/jquery/dist/jquery.min.js"></script>
@@ -24,138 +33,29 @@ bower install --save eymaps-js
 <!-- jquery.eymaps.js -->
 <script src="dist/jquery.eymaps.js"></script>
 ```
-**2. Задать HTML-элемент, в который будет помещена карта, указать ширину и высоту блока:**
+
+2. Создать HTML-контейнер для карты, задать ему высоту и  [координаты](http://dimik.github.io/ymaps/examples/location-tool/),  [нанести метки](http://wahawaher.loc/eymaps-js/#examples-marks)  при необходимости:
 ```html
-<div class="example-map"></div>
+<div class="example" data-eymaps='{
+	"map": { "center": [55.74787804, 37.62678159] }
+}' style="height: 250px;"></div>
 ```
-```css
-.example-map {
-	width: 100%;
-	height: 400px;
-}
-```
-**3. Инициализировать плагин на элементе(группе элементов), одним из способов:<br>**
-**- Указать координаты в параметрах при ините, JS ( [Определить координаты](http://dimik.github.io/ymaps/examples/location-tool/) ):**
+
+3. Инициализировать плагин:
 ```javascript
-$('.example-map').eyMaps({
-	map: {
-		center: [55.74787804, 37.62678159], // Координаты центра карты
-		zoom: 15 // Масштаб
-	}
-});
-```
-**- Инициализировать плагин без координат, указать их в data-атрибутах HTML-элементов:**
-```javascript
-$('.example-map').eyMaps({
-	// Здесь можно указать другие пар-ры, которые примут все карты с классом `example-map`
-});
-```
-```html
-<div class="example-map" data-eymaps="{
-	map: { center: [55.74787804, 37.62678159], zoom: 15 }
-}"></div>
-
-<div class="example-map" data-eymaps="{
-	map: { center: [53.74787804, 31.62678159], zoom: 5 }
-}"></div>
+$('.example').eyMaps();
 ```
 
-## Примеры использования:
-https://wahawaher.github.io/eymaps-js/
+## Требования:
+- [jQuery](http://jquery.com/download/) (версия 1.9.1 или выше)
 
-## Параметры:
+## Поддержка
+Решение проблем/багов плагина, а также замечания и пожелания в [соответствующей теме](http://github.com/WahaWaher/eymaps-js/issues)
 
-Опция | Тип | Поум. | Описание
------- | ------ | --------- | ---------
-`api` | string | '<span>https://</span>api-maps.yandex.ru/2.1/?lang=ru_RU' | Ссылка на Yandex Map API.
-`zoomAfter` | string | 'click' | Разрешает зум карты только по опр. событию на эл-те карты (`click`, `mouseover`, `mouseenter` и т.д.).
-`event` | boolean | false | Подгрузка карты по событию (`click`, `mouseover`, `mouseenter` и т.д.). `false` - карта будет подгружена при загрузке страницы.
-`placemarkDefaults` | object | {} | Опции для изменения стиля меток (по умолчанию для всех меток). Свойства этого объекта аналогичны параметрам "options" внутри класса "Placemark" (см. док. ["JavaScript API Яндекс.Карт"](https://tech.yandex.ru/maps/doc/jsapi/2.1/ref/reference/Placemark-docpage/)). Имеют наинизший приоритет, используются, если нигде не переопределены.
-`map` | object | { center: [], zoom: 5 } | Объект с основными параметрами карты (свойства объекта идентичны свойствам параметра "state" класса "Map" в ["JavaScript API Яндекс.Карт"](https://tech.yandex.ru/maps/doc/jsapi/2.1/ref/reference/Map-docpage/)) ( [Определить координаты](http://dimik.github.io/ymaps/examples/location-tool/) )
-`placemark` | array | [{ geometry: [], properties: {}, options: {} }] | Массив меток (объектов с параметрами меток). Каждый новый объект - новая метка. Параметры внутри объекта (geometry, properties, options) идентичны параметрам класса "Placemark" в ["JavaScript API Яндекс.Карт"](https://tech.yandex.ru/maps/doc/jsapi/2.1/ref/reference/Placemark-docpage/) ( [Определить координаты](http://dimik.github.io/ymaps/examples/location-tool/) )
-
-
-## Функции обратного вызова:
-
-Callback | Аргументы | Поум. | Описание
------- | ---- | ------- | -----------
-`beforeInit` | \[sets:object\] | n/a | Перед началом инициализации.
-`beforeLoad` | \[sets:object\] | n/a | Перед загрузкой карты.
-`afterLoad` | \[sets:object\] | n/a | По окончанию загрузки карты.
-
-```javascript
-$('.example-map').eyMaps({
-	beforeInit: function(sets) {},
-	beforeLoad: function(sets) {},
-	afterLoad:  function(sets) {}
-});
-```
-## Публичные методы:
-Метод | Описание
------------ | -----------
-`init` | Инициализация
-`reinit` | Реинициализация
-`destroy` | Вернуть состояние до инита
-`load` | Загрузка карты
-
-```javascript
-// Инициализация
-var options = {}; // параметры
-$('.example-map').eyMaps('init', options);
-
-// Реинициализация
-$('.example-map').eyMaps('reinit'); // Реинит с текущими параметрами
-
-var newOptions = {}; // Объект с новыми параметрами
-$('.example-map').eyMaps('reinit', newOptions); // Реинит с новыми параметрами
-
-// Вернуть состояние элементa/ов до инита
-$('.example-map').eyMaps('destroy');
-
-// Загрузка карты
-$('.example-map').eyMaps('load');
-```
-
-## Заметки:
-### Дата-атрибуты:
-Параметры в data-атрибуте имеют наивысший приоритет. Они переопределят параметры по умолчанию, а так же пользовательские параметры заданные при инициализации.
-```javascript
-	// Инициализация группы элементов
-	$('.example-map').eyMaps();
-```
-```html
-	<!-- Переопределение параметров для отдельных эл-ов через Data-атрибут: -->
-	<div class="example-map" data-eymaps="{
-		event: 'mouseover'
-	}"></div>
-	<div class="example-map" data-eymaps="{
-		event: 'click'
-	}"></div>
-```
-### Переопределение параметров по умолчанию:
-```javascript
-	// Переопределение параметров по умолчанию:
-	$.fn.eyMaps.defaults = {};
-	
-	// Например:
-	$.fn.eyMaps.defaults = {
-		event: 'mouseover' // изменит станд. значение пар-ра event
-	};
-```
-
-## Зависимости:
-- [jQuery](http://jquery.com/download/)
-
-## Требования
-- jQuery версия 1.9.1 или выше
-
-## История изменений:
-### 1.0.1 - 18.08.2018
-- Добавлена поддержка цепочек вызовов
-- Некоторые правки в readme.md
+По всем другим вопросам:  [wahawaher@gmail.com](mailto:wahawaher@gmail.com "Написать на wahawaher@gmail.com")
 
 ## Лицензия (MIT)
-Copyright (c) 2018 Sergey Kravchenko
+Copyright (c) 2018-2019 Sergey Kravchenko
 
 Данная лицензия разрешает лицам, получившим копию данного программного обеспечения и сопутствующей документации (в дальнейшем именуемыми «Программное Обеспечение»), безвозмездно использовать Программное Обеспечение без ограничений, включая неограниченное право на использование, копирование, изменение, слияние, публикацию, распространение, сублицензирование и/или продажу копий Программного Обеспечения, а также лицам, которым предоставляется данное Программное Обеспечение, при соблюдении следующих условий:
 

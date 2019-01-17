@@ -1,12 +1,20 @@
 {
   "name": "eymaps-js",
-  "version": "1.0.1",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "version": "2.0.0",
+  "description": "jQuery-плагин, позволяющий добавлять Яндекс карты более простым и оптимальным способом",
   "author": "WahaWaher",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/WahaWaher/eymaps-js.git"
+  },
   "license": "MIT",
+  "keywords": [
+    "javascript",
+    "jquery",
+    "yandex",
+    "map",
+    "yandex-map"
+  ],
   "devDependencies": {
     "browser-sync": "^2.18.13",
     "del": "^3.0.0",

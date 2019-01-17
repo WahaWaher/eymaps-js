@@ -11,7 +11,7 @@ const gulp = require('gulp'),
 		headerComment = require('gulp-header-comment'),
 		headerInfo = `
 	    	jQuery.eyMaps
-		   Version: 1.0.1
+		   Version: 2.0.0
 		   Repo: https://github.com/WahaWaher/eymaps-js
 		   Author: Sergey Kravchenko
 		   Contacts: wahawaher@gmail.com

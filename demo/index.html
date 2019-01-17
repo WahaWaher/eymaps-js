@@ -16,6 +16,9 @@
 	<div class="container">
 
 		<h1>jQuery.eyMaps</h1>
+		<p>плагин, позволяющий добавлять Яндекс карты более простым и оптимальным способом.</p>
+
+		<hr>
 
 		<div class="ex-methods">
 			<button class="init">Init</button>
@@ -26,13 +29,13 @@
 
 		<hr>
 		
-		<div id="ex-map" data-eymaps="{
-			map: { center: [55.74787804, 37.62678159], zoom: 15 },
-			event: 'click'
-		}"></div>
+		<div class="ex-map" data-eymaps='{
+			"map": { "center": [55.74787804, 37.62678159], "zoom": 5 },
+			"event": "click"
+		}'></div>
 
 		<style>
-			#ex-map{
+			.ex-map{
 				width: 100%;
 				height: 400px;
 				background-color: #bbb;
@@ -42,30 +45,43 @@
 		<script>
 			window.addEventListener('load', function() {
 				
-				$('#ex-map').eyMaps({
+				$('.ex-map')
 
-					placemark: [
-						{ geometry: [55.74787804, 37.62678159], properties: {}, options: {} }
-					],
+				.on('beforeInit.eym', function(e, instance) {
+					// console.log( 'beforeInit.eym: ', e, instance );
+				})
+				.on('afterInit.eym', function(e, instance) {
+					// console.log( 'afterInit.eym: ', e, instance );
+				})
+				.on('beforeLoad.eym', function(e, instance) {
+					// console.log( 'beforeLoad.eym: ', e, instance );
+				})
+				.on('afterLoad.eym', function(e, instance, map) {
+					console.log( 'afterLoad.eym: ', e, instance, map );
+				})
 
-					afterLoad: function(sets) {}
+				.eyMaps({
+
+					// placemark: [
+					// 	{ geometry: [55.74787804, 37.62678159], properties: {}, options: {} }
+					// ],
 
 				});
 
 				$('.init').on('click', function() {
-					$('#ex-map').eyMaps('init');
+					$('.ex-map').eyMaps('init');
 				});
 
 				$('.destroy').on('click', function() {
-					$('#ex-map').eyMaps('destroy');
+					$('.ex-map').eyMaps('destroy');
 				});
 
 				$('.reinit').on('click', function() {
-					$('#ex-map').eyMaps('reinit');
+					$('.ex-map').eyMaps('reinit');
 				});
 
 				$('.load').on('click', function() {
-					$('#ex-map').eyMaps('load');
+					$('.ex-map').eyMaps('load');
 				});
 			
 
