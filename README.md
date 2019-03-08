@@ -1,6 +1,6 @@
-
 jQuery EyMaps Plugin <sup>2.0.0</sup>
 -------
+[![](https://data.jsdelivr.com/v1/package/npm/eymaps-js/badge)](https://www.jsdelivr.com/package/npm/eymaps-js) <br><br>
 _**jQuery-плагин**, позволяющий добавлять **Яндекс карты**  
 более простым и оптимальным способом._
 
@@ -13,6 +13,9 @@ _**jQuery-плагин**, позволяющий добавлять **Яндек
 <br>
 
 [Демо](http://wahawaher.ru/eymaps-js#demo) | [Документация](http://wahawaher.ru/eymaps-js)
+
+## CDN:
+[https://www.jsdelivr.com/package/npm/eymaps-js?path=dist](https://www.jsdelivr.com/package/npm/eymaps-js?path=dist)
 
 ## Пакетные менеджеры:
 ```sh
