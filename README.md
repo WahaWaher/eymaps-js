@@ -12,7 +12,7 @@ _**jQuery-плагин**, позволяющий добавлять **Яндек
 
 <br>
 
-[Демо](http://wahawaher.ru/eymaps-js#demo) | [Документация](http://wahawaher.ru/eymaps-js)
+[Демо](https://wahawaher.000webhostapp.com/eymaps-js#demo) | [Документация](https://wahawaher.000webhostapp.com/eymaps-js)
 
 ## CDN:
 [https://www.jsdelivr.com/package/npm/eymaps-js?path=dist](https://www.jsdelivr.com/package/npm/eymaps-js?path=dist)
