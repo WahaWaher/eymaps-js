@@ -12,18 +12,18 @@ _**jQuery-плагин**, позволяющий добавлять **Яндек
 
 <br>
 
-[Демо](https://wahawaher.000webhostapp.com/eymaps-js#demo) | [Документация](https://wahawaher.000webhostapp.com/eymaps-js)
+[Демо](https://wahawaher.github.io/eymaps-js#demo) | [Документация](https://wahawaher.github.io/eymaps-js)
 
 ## CDN:
 [https://www.jsdelivr.com/package/npm/eymaps-js?path=dist](https://www.jsdelivr.com/package/npm/eymaps-js?path=dist)
 
 ## Пакетные менеджеры:
 ```sh
-# Bower
-bower install --save eymaps-js
+# YARN
+yarn add eymaps-js
 
 # NPM
-npm install --save eymaps-js
+npm i eymaps-js
 ```
 
 ## Подключение:
@@ -40,7 +40,7 @@ npm install --save eymaps-js
 2. Создать HTML-контейнер для карты, задать ему высоту и  [координаты](http://dimik.github.io/ymaps/examples/location-tool/),  [нанести метки](http://wahawaher.loc/eymaps-js/#examples-marks)  при необходимости:
 ```html
 <div class="example" data-eymaps='{
-	"map": { "center": [55.74787804, 37.62678159] }
+  "map": { "center": [55.74787804, 37.62678159] }
 }' style="height: 250px;"></div>
 ```
 

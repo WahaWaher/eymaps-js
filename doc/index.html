@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+
+  <title>jQuery EyMaps — Оптимальный способ вставки Яндекс карт на сайт</title>
+
+  <meta name="description" content="jQuery EyMaps — Оптимальный способ вставки Яндекс карт на сайт">
+  <meta name="keywords" content="jquery, jq, eymaps, yandex, map, яндекс карты">
+
+  <!-- Favicons  -->
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
+  <!-- Bootstrap Grid System 3.3.4 + Normalizer -->
+  <style>html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,details,figcaption,figure,footer,header,hgroup,main,menu,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block;vertical-align:baseline}audio:not([controls]){display:none;height:0}[hidden],template{display:none}a{background-color:transparent}a:active,a:hover{outline:0}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:700}dfn{font-style:italic}h1{font-size:2em;margin:.67em 0}mark{background:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-.5em}sub{bottom:-.25em}img{border:0}svg:not(:root){overflow:hidden}figure{margin:1em 40px}hr{-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box;height:0}pre{overflow:auto}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}button,input,optgroup,select,textarea{color:inherit;font:inherit;margin:0}button{overflow:visible}button,select{text-transform:none}button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer}button[disabled],html input[disabled]{cursor:default}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}input{line-height:normal}input[type="checkbox"],input[type="radio"]{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;padding:0}input[type="number"]::-webkit-inner-spin-button,input[type="number"]::-webkit-outer-spin-button{height:auto}input[type="search"]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}input[type="search"]::-webkit-search-cancel-button,input[type="search"]::-webkit-search-decoration{-webkit-appearance:none}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{border:0;padding:0}textarea{overflow:auto}optgroup{font-weight:700}table{border-collapse:collapse;border-spacing:0}td,th{padding:0}*{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}:before,:after{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}html{font-size:10px;-webkit-tap-highlight-color:transparent}body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14px;line-height:1.42857143;color:#333;background-color:#fff}input,button,select,textarea{font-family:inherit;font-size:inherit;line-height:inherit}a{color:#337ab7;text-decoration:none}a:focus{outline:thin dotted;outline:5px auto -webkit-focus-ring-color;outline-offset:-2px}figure{margin:0}img{vertical-align:middle}.img-responsive{display:block;max-width:100%;height:auto}.img-rounded{border-radius:6px}.img-thumbnail{padding:4px;line-height:1.42857143;background-color:#fff;border:1px solid #ddd;border-radius:4px;-webkit-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;transition:all .2s ease-in-out;display:inline-block;max-width:100%;height:auto}.img-circle{border-radius:50%}hr{margin-top:20px;margin-bottom:20px;border:0;border-top:1px solid #eee}.sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);border:0}.sr-only-focusable:active,.sr-only-focusable:focus{position:static;width:auto;height:auto;margin:0;overflow:visible;clip:auto}.container{margin-right:auto;margin-left:auto;padding-left:15px;padding-right:15px}@media (min-width: 768px){.container{width:750px}}@media (min-width: 992px){.container{width:970px}}@media (min-width: 1200px){.container{width:1170px}}.container-fluid{margin-right:auto;margin-left:auto;padding-left:15px;padding-right:15px}.row{margin-left:-15px;margin-right:-15px}.col-xs-1,.col-sm-1,.col-md-1,.col-lg-1,.col-xs-2,.col-sm-2,.col-md-2,.col-lg-2,.col-xs-3,.col-sm-3,.col-md-3,.col-lg-3,.col-xs-4,.col-sm-4,.col-md-4,.col-lg-4,.col-xs-5,.col-sm-5,.col-md-5,.col-lg-5,.col-xs-6,.col-sm-6,.col-md-6,.col-lg-6,.col-xs-7,.col-sm-7,.col-md-7,.col-lg-7,.col-xs-8,.col-sm-8,.col-md-8,.col-lg-8,.col-xs-9,.col-sm-9,.col-md-9,.col-lg-9,.col-xs-10,.col-sm-10,.col-md-10,.col-lg-10,.col-xs-11,.col-sm-11,.col-md-11,.col-lg-11,.col-xs-12,.col-sm-12,.col-md-12,.col-lg-12{position:relative;min-height:1px;padding-left:15px;padding-right:15px}.col-xs-1,.col-xs-2,.col-xs-3,.col-xs-4,.col-xs-5,.col-xs-6,.col-xs-7,.col-xs-8,.col-xs-9,.col-xs-10,.col-xs-11,.col-xs-12{float:left}.col-xs-12{width:100%}.col-xs-11{width:91.66666667%}.col-xs-10{width:83.33333333%}.col-xs-9{width:75%}.col-xs-8{width:66.66666667%}.col-xs-7{width:58.33333333%}.col-xs-6{width:50%}.col-xs-5{width:41.66666667%}.col-xs-4{width:33.33333333%}.col-xs-3{width:25%}.col-xs-2{width:16.66666667%}.col-xs-1{width:8.33333333%}.col-xs-pull-12{right:100%}.col-xs-pull-11{right:91.66666667%}.col-xs-pull-10{right:83.33333333%}.col-xs-pull-9{right:75%}.col-xs-pull-8{right:66.66666667%}.col-xs-pull-7{right:58.33333333%}.col-xs-pull-6{right:50%}.col-xs-pull-5{right:41.66666667%}.col-xs-pull-4{right:33.33333333%}.col-xs-pull-3{right:25%}.col-xs-pull-2{right:16.66666667%}.col-xs-pull-1{right:8.33333333%}.col-xs-pull-0{right:auto}.col-xs-push-12{left:100%}.col-xs-push-11{left:91.66666667%}.col-xs-push-10{left:83.33333333%}.col-xs-push-9{left:75%}.col-xs-push-8{left:66.66666667%}.col-xs-push-7{left:58.33333333%}.col-xs-push-6{left:50%}.col-xs-push-5{left:41.66666667%}.col-xs-push-4{left:33.33333333%}.col-xs-push-3{left:25%}.col-xs-push-2{left:16.66666667%}.col-xs-push-1{left:8.33333333%}.col-xs-push-0{left:auto}.col-xs-offset-12{margin-left:100%}.col-xs-offset-11{margin-left:91.66666667%}.col-xs-offset-10{margin-left:83.33333333%}.col-xs-offset-9{margin-left:75%}.col-xs-offset-8{margin-left:66.66666667%}.col-xs-offset-7{margin-left:58.33333333%}.col-xs-offset-6{margin-left:50%}.col-xs-offset-5{margin-left:41.66666667%}.col-xs-offset-4{margin-left:33.33333333%}.col-xs-offset-3{margin-left:25%}.col-xs-offset-2{margin-left:16.66666667%}.col-xs-offset-1{margin-left:8.33333333%}.col-xs-offset-0{margin-left:0}@media (min-width: 768px){.col-sm-1,.col-sm-2,.col-sm-3,.col-sm-4,.col-sm-5,.col-sm-6,.col-sm-7,.col-sm-8,.col-sm-9,.col-sm-10,.col-sm-11,.col-sm-12{float:left}.col-sm-12{width:100%}.col-sm-11{width:91.66666667%}.col-sm-10{width:83.33333333%}.col-sm-9{width:75%}.col-sm-8{width:66.66666667%}.col-sm-7{width:58.33333333%}.col-sm-6{width:50%}.col-sm-5{width:41.66666667%}.col-sm-4{width:33.33333333%}.col-sm-3{width:25%}.col-sm-2{width:16.66666667%}.col-sm-1{width:8.33333333%}.col-sm-pull-12{right:100%}.col-sm-pull-11{right:91.66666667%}.col-sm-pull-10{right:83.33333333%}.col-sm-pull-9{right:75%}.col-sm-pull-8{right:66.66666667%}.col-sm-pull-7{right:58.33333333%}.col-sm-pull-6{right:50%}.col-sm-pull-5{right:41.66666667%}.col-sm-pull-4{right:33.33333333%}.col-sm-pull-3{right:25%}.col-sm-pull-2{right:16.66666667%}.col-sm-pull-1{right:8.33333333%}.col-sm-pull-0{right:auto}.col-sm-push-12{left:100%}.col-sm-push-11{left:91.66666667%}.col-sm-push-10{left:83.33333333%}.col-sm-push-9{left:75%}.col-sm-push-8{left:66.66666667%}.col-sm-push-7{left:58.33333333%}.col-sm-push-6{left:50%}.col-sm-push-5{left:41.66666667%}.col-sm-push-4{left:33.33333333%}.col-sm-push-3{left:25%}.col-sm-push-2{left:16.66666667%}.col-sm-push-1{left:8.33333333%}.col-sm-push-0{left:auto}.col-sm-offset-12{margin-left:100%}.col-sm-offset-11{margin-left:91.66666667%}.col-sm-offset-10{margin-left:83.33333333%}.col-sm-offset-9{margin-left:75%}.col-sm-offset-8{margin-left:66.66666667%}.col-sm-offset-7{margin-left:58.33333333%}.col-sm-offset-6{margin-left:50%}.col-sm-offset-5{margin-left:41.66666667%}.col-sm-offset-4{margin-left:33.33333333%}.col-sm-offset-3{margin-left:25%}.col-sm-offset-2{margin-left:16.66666667%}.col-sm-offset-1{margin-left:8.33333333%}.col-sm-offset-0{margin-left:0}}@media (min-width: 992px){.col-md-1,.col-md-2,.col-md-3,.col-md-4,.col-md-5,.col-md-6,.col-md-7,.col-md-8,.col-md-9,.col-md-10,.col-md-11,.col-md-12{float:left}.col-md-12{width:100%}.col-md-11{width:91.66666667%}.col-md-10{width:83.33333333%}.col-md-9{width:75%}.col-md-8{width:66.66666667%}.col-md-7{width:58.33333333%}.col-md-6{width:50%}.col-md-5{width:41.66666667%}.col-md-4{width:33.33333333%}.col-md-3{width:25%}.col-md-2{width:16.66666667%}.col-md-1{width:8.33333333%}.col-md-pull-12{right:100%}.col-md-pull-11{right:91.66666667%}.col-md-pull-10{right:83.33333333%}.col-md-pull-9{right:75%}.col-md-pull-8{right:66.66666667%}.col-md-pull-7{right:58.33333333%}.col-md-pull-6{right:50%}.col-md-pull-5{right:41.66666667%}.col-md-pull-4{right:33.33333333%}.col-md-pull-3{right:25%}.col-md-pull-2{right:16.66666667%}.col-md-pull-1{right:8.33333333%}.col-md-pull-0{right:auto}.col-md-push-12{left:100%}.col-md-push-11{left:91.66666667%}.col-md-push-10{left:83.33333333%}.col-md-push-9{left:75%}.col-md-push-8{left:66.66666667%}.col-md-push-7{left:58.33333333%}.col-md-push-6{left:50%}.col-md-push-5{left:41.66666667%}.col-md-push-4{left:33.33333333%}.col-md-push-3{left:25%}.col-md-push-2{left:16.66666667%}.col-md-push-1{left:8.33333333%}.col-md-push-0{left:auto}.col-md-offset-12{margin-left:100%}.col-md-offset-11{margin-left:91.66666667%}.col-md-offset-10{margin-left:83.33333333%}.col-md-offset-9{margin-left:75%}.col-md-offset-8{margin-left:66.66666667%}.col-md-offset-7{margin-left:58.33333333%}.col-md-offset-6{margin-left:50%}.col-md-offset-5{margin-left:41.66666667%}.col-md-offset-4{margin-left:33.33333333%}.col-md-offset-3{margin-left:25%}.col-md-offset-2{margin-left:16.66666667%}.col-md-offset-1{margin-left:8.33333333%}.col-md-offset-0{margin-left:0}}@media (min-width: 1200px){.col-lg-1,.col-lg-2,.col-lg-3,.col-lg-4,.col-lg-5,.col-lg-6,.col-lg-7,.col-lg-8,.col-lg-9,.col-lg-10,.col-lg-11,.col-lg-12{float:left}.col-lg-12{width:100%}.col-lg-11{width:91.66666667%}.col-lg-10{width:83.33333333%}.col-lg-9{width:75%}.col-lg-8{width:66.66666667%}.col-lg-7{width:58.33333333%}.col-lg-6{width:50%}.col-lg-5{width:41.66666667%}.col-lg-4{width:33.33333333%}.col-lg-3{width:25%}.col-lg-2{width:16.66666667%}.col-lg-1{width:8.33333333%}.col-lg-pull-12{right:100%}.col-lg-pull-11{right:91.66666667%}.col-lg-pull-10{right:83.33333333%}.col-lg-pull-9{right:75%}.col-lg-pull-8{right:66.66666667%}.col-lg-pull-7{right:58.33333333%}.col-lg-pull-6{right:50%}.col-lg-pull-5{right:41.66666667%}.col-lg-pull-4{right:33.33333333%}.col-lg-pull-3{right:25%}.col-lg-pull-2{right:16.66666667%}.col-lg-pull-1{right:8.33333333%}.col-lg-pull-0{right:auto}.col-lg-push-12{left:100%}.col-lg-push-11{left:91.66666667%}.col-lg-push-10{left:83.33333333%}.col-lg-push-9{left:75%}.col-lg-push-8{left:66.66666667%}.col-lg-push-7{left:58.33333333%}.col-lg-push-6{left:50%}.col-lg-push-5{left:41.66666667%}.col-lg-push-4{left:33.33333333%}.col-lg-push-3{left:25%}.col-lg-push-2{left:16.66666667%}.col-lg-push-1{left:8.33333333%}.col-lg-push-0{left:auto}.col-lg-offset-12{margin-left:100%}.col-lg-offset-11{margin-left:91.66666667%}.col-lg-offset-10{margin-left:83.33333333%}.col-lg-offset-9{margin-left:75%}.col-lg-offset-8{margin-left:66.66666667%}.col-lg-offset-7{margin-left:58.33333333%}.col-lg-offset-6{margin-left:50%}.col-lg-offset-5{margin-left:41.66666667%}.col-lg-offset-4{margin-left:33.33333333%}.col-lg-offset-3{margin-left:25%}.col-lg-offset-2{margin-left:16.66666667%}.col-lg-offset-1{margin-left:8.33333333%}.col-lg-offset-0{margin-left:0}}.clearfix:before,.clearfix:after,.container:before,.container:after,.container-fluid:before,.container-fluid:after,.row:before,.row:after{content:" ";display:table}.clearfix:after,.container:after,.container-fluid:after,.row:after{clear:both}.center-block{display:block;margin-left:auto;margin-right:auto}.pull-right{float:right!important}.pull-left{float:left!important}.hide{display:none!important}.show{display:block!important}.invisible{visibility:hidden}.text-hide{font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0}.hidden{display:none!important;visibility:hidden!important}.affix{position:fixed}.visible-xs,.visible-sm,.visible-md,.visible-lg{display:none!important}.visible-xs-block,.visible-xs-inline,.visible-xs-inline-block,.visible-sm-block,.visible-sm-inline,.visible-sm-inline-block,.visible-md-block,.visible-md-inline,.visible-md-inline-block,.visible-lg-block,.visible-lg-inline,.visible-lg-inline-block{display:none!important}@media (max-width: 767px){.visible-xs{display:block!important}table.visible-xs{display:table}tr.visible-xs{display:table-row!important}th.visible-xs,td.visible-xs{display:table-cell!important}.visible-xs-block{display:block!important}.visible-xs-inline{display:inline!important}.visible-xs-inline-block{display:inline-block!important}}@media (min-width: 768px) and (max-width: 991px){.visible-sm{display:block!important}table.visible-sm{display:table}tr.visible-sm{display:table-row!important}th.visible-sm,td.visible-sm{display:table-cell!important}.visible-sm-block{display:block!important}.visible-sm-inline{display:inline!important}.visible-sm-inline-block{display:inline-block!important}}@media (min-width: 992px) and (max-width: 1199px){.visible-md{display:block!important}table.visible-md{display:table}tr.visible-md{display:table-row!important}th.visible-md,td.visible-md{display:table-cell!important}.visible-md-block{display:block!important}.visible-md-inline{display:inline!important}.visible-md-inline-block{display:inline-block!important}}@media (min-width: 1200px){.visible-lg{display:block!important}table.visible-lg{display:table}tr.visible-lg{display:table-row!important}th.visible-lg,td.visible-lg{display:table-cell!important}}@media (min-width: 1200px){.visible-lg-block{display:block!important}}@media (min-width: 1200px){.visible-lg-inline{display:inline!important}}@media (min-width: 1200px){.visible-lg-inline-block{display:inline-block!important}}@media (max-width: 767px){.hidden-xs{display:none!important}}@media (min-width: 768px) and (max-width: 991px){.hidden-sm{display:none!important}}@media (min-width: 992px) and (max-width: 1199px){.hidden-md{display:none!important}}@media (min-width: 1200px){.hidden-lg{display:none!important}}.visible-print{display:none!important}@media print{.visible-print{display:block!important}table.visible-print{display:table}tr.visible-print{display:table-row!important}th.visible-print,td.visible-print{display:table-cell!important}}.visible-print-block{display:none!important}@media print{.visible-print-block{display:block!important}}.visible-print-inline{display:none!important}@media print{.visible-print-inline{display:inline!important}}.visible-print-inline-block{display:none!important}@media print{.visible-print-inline-block{display:inline-block!important}}@media print{.hidden-print{display:none!important}}</style>
+
+  <link rel="stylesheet" href="libs/uikit/css/uikit.css">
+  <link rel="stylesheet" href="libs/prism/prism.css">
+  <link rel="stylesheet" href="css/fonts.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/media.css">
+  <link rel="stylesheet" href="css/fallbacks.css">
+</head>
+<body>
+
+<div class="site">
+
+<!-- SITE-HEADER: Start -->
+<header class="site-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        
+        <a href="https://wahawaher.github.io/eymaps-js/">
+          <h1>
+            <small>jQuery</small>
+            <span><span style="color: #ff0000;">Ey</span><span style="color: #000000;">Maps</span></span>
+          </h1>
+        </a>
+
+      </div>
+    </div>
+  </div>
+</header>
+<!-- SITE-HEADER: End -->
+
+<!-- SITE-UNDERHEADER: Start -->
+<div class="site-underheader">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="undr-left">
+          <p><strong>jQuery-плагин</strong>, позволяющий добавлять <b>Яндекс карты</b><br>
+          более простым и оптимальным способом</p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="undr-right">
+          <a href="https://github.com/WahaWaher/eymaps-js/archive/master.zip" target="_blank" class="uk-button uk-button-accent uk-button-medium">Скачать</a>
+          <a href="https://github.com/WahaWaher/eymaps-js" target="_blank" class="uk-button uk-button-accent uk-button-medium">GitHub</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- SITE-UNDERHEADER: End -->
+
+<div class="site-content">
+  <div class="container">
+    <div class="row">
+
+
+<div class="col-md-3">
+
+  <!-- MENU: Start -->
+  <ul class="nav-doc">
+
+    <li><a href="#setup" class="scroll-to">Подключение</a></li>
+    <li><a href="#options" class="scroll-to">Параметры</a></li>
+    <li><a href="#methods" class="scroll-to">Методы</a></li>
+    <li><a href="#events" class="scroll-to">События</a>
+    <hr></li>
+    
+    <li><a href="#data-attrs" class="scroll-to">Data-атрибуты</a></li>
+    <li><a href="#defaults" class="scroll-to">Параметры по умолчанию</a>
+    <hr></li>
+    <!-- <li><a href="#reference" class="scroll-to">Рекомендации</a> -->
+    
+    
+    <li>
+      <a href="#examples" class="scroll-to">Примеры использования</a>
+      <!-- <ul>
+        <li><a href="#examples-1" class="scroll-to">Пример #1</a></li>
+      </ul> -->
+      <hr>
+    </li>
+    
+    <li><a href="#changelog" class="scroll-to">История изменений</a></li>
+    <li><a href="#license" class="scroll-to">Лицензия</a></li>
+    <li><a href="#support" class="scroll-to">Поддержка</a>
+    <hr></li>
+    
+    <li><a href="#top" class="scroll-to">Наверх</a></li>
+
+  </ul>
+  <!-- MENU: End -->
+
+</div>
+<div class="col-md-9">
+
+
+<!-- ОСОБЕННОСТИ: Start -->
+<section class="sct">
+
+  <a id="features" href="#features" class="scroll-to"><h2 class="uk-heading-line"><span>Особенности</span></h2></a>
+
+  <ul class="list">
+    <li>"API Яндекс.Карт" загружается на страницу однократно и только, если на ней выводится карта</li>
+    <li>Экономия трафика. Загрузка карты (вместе со скриптом "API Яндекс.Карт") по JS-событию (click, mouseover и т.д.)</li>
+    <li>Возможность запретить зум карты до возникновения JS-события на ней (click, mouseover и т.д.) (Карта не мешает скроллу колесиком мыши, если она на всю ширину страницы)</li>
+    <li>Гибкие опции, большинство из которых идентичны опциям "JavaScript API Яндекс.Карт"</li>
+    <li>Возможность задавать новые/переопределять опции через Data-атрибуты</li>
+  </ul>
+
+</section>
+<!-- ОСОБЕННОСТИ: End -->
+
+
+<!-- QUICK-DEMO: Start -->
+<div class="sct" id="demo">
+
+  <div class="row">
+    <div class="col-md-6">
+      
+      <h3 class="uk-heading-bullet">Демо: </h3>
+      <small>Загрузка по наведению мыши</small>
+
+      <div class="example quick-demo" data-eymaps='{
+        "map": { "center": [55.74787804, 37.62678159] }
+      }' style="height: 200px"></div>
+      
+
+    </div>
+    <div class="col-md-6">
+
+      <h3 class="uk-heading-bullet">Демо: </h3>
+      <small>Загрузка по наведению мыши + метки</small>
+
+      <div class="example quick-demo" data-eymaps='{
+        "map": { "center": [55.74787804, 37.62678159] },
+        "placemark": [
+
+          {
+            "geometry": [55.75699494, 37.65402202],
+            "properties": {
+              "hintContent": "Метка №1: Всплывающая подсказка.",
+              "balloonContent": "Метка №1 Всплывающее окно."
+            }
+          }
+
+        ]
+      }' style="height: 200px"></div>
+      
+    </div>
+  </div>
+
+  <script>
+    window.addEventListener('load', function () {
+      
+      $('.example.quick-demo').eyMaps({
+        event: 'mouseover',
+        map: {
+          controls: []
+        }
+      });
+
+    });
+  </script>
+
+</div>
+<!-- QUICK-DEMO: End -->
+
+
+  <h2 class="uk-heading-line">Пакетные менеджеры</h2>
+
+  <div class="highlight-block">
+    <div class="highlight-header">
+      <span class="circle"></span>
+      <span class="circle"></span>
+      <span class="circle"></span>
+      <svg class="svg-icon"><use xlink:href="svg/svg-sprite.svg#svg-code"></use></svg>
+    </div>
+    <div class="highlight">
+      <script type="text/plain" class="language-php">
+        # Bower
+        bower install --save eymaps-js
+
+        # NPM
+        npm install --save eymaps-js
+      </script>
+    </div>
+  </div>
+
+
+<!-- ПОДКЛЮЧЕНИЕ: Start -->
+<section class="sct">
+
+  <a id="setup" href="#setup" class="scroll-to"><h2 class="uk-heading-line"><span>Подключение</span></h2></a>
+
+  <h5>1. Подключить последнюю версию <b>jQuery</b> и <b>jquery.eymaps.js</b></h5>
+
+  <div class="highlight-block">
+    <div class="highlight-header">
+      <span class="circle"></span>
+      <span class="circle"></span>
+      <span class="circle"></span>
+      <svg class="svg-icon"><use xlink:href="svg/svg-sprite.svg#svg-code"></use></svg>
+    </div>
+    <div class="highlight">
+      <pre>
+        <code class="language-html">
+
+        &lt;!-- jQuery --&gt;
+        &lt;script src="libs/jquery/dist/jquery.min.js"&gt;&lt;/script&gt;
+
+        &lt;!-- jquery.eymaps.js --&gt;
+        &lt;script src="dist/jquery.eymaps.js"&gt;&lt;/script&gt;
+
+        </code>
+      </pre>
+    </div>
+  </div>
+
+  <h5>2. Создать HTML-контейнер для карты, задать ему высоту и <a href="http://dimik.github.io/ymaps/examples/location-tool/" target="_blank">координаты</a>, <a href="#examples-marks" class="scroll-to">нанести метки</a> при необходимости:<br>
+    </h5>
+
+  <div class="highlight-block">
+    <div class="highlight-header">
+      <span class="circle"></span>
+      <span class="circle"></span>
+      <span class="circle"></span>
+      <svg class="svg-icon"><use xlink:href="svg/svg-sprite.svg#svg-code"></use></svg>
+    </div>
+    <div class="highlight">
+      <script type="text/plain" class="language-html">
+
+        <div class="example" data-eymaps='{
+          "map": { "center": [55.74787804, 37.62678159] }
+        }' style="height: 250px;"></div>
+
+      </script>
+    </div>
+  </div>
+
+  <h5>3. Инициализировать плагин:</h5>
+
+  <div class="highlight-block">
+    <div class="highlight-header">
+      <span class="circle"></span>
+      <span class="circle"></span>
+      <span class="circle"></span>
+      <svg class="svg-icon"><use xlink:href="svg/svg-sprite.svg#svg-code"></use></svg>
+    </div>
+    <div class="highlight">
+      <pre>
+        <code class="language-js">
+
+        $('.example').eyMaps();
+
+        </code>
+      </pre>
+    </div>
+  </div>
+
+</section>
+<!-- ПОДКЛЮЧЕНИЕ: End -->
+
+
+
+<!-- ПАРАМЕТРЫ: Start -->
+<section class="sct">
+
+  <a id="options" class="scroll-to" href="#options"><h2 class="uk-heading-line"><span>Параметры</span></h2></a>
+
+  <div class="table-container">
+    <table class="uk-table uk-table-divider">
+        <!-- <caption>Таблица параметров:</caption> -->
+        <thead>
+            <tr>
+                <th>Опция</th>
+                <th>Тип</th>
+                <th>Поум.</th>
+                <th>Описание</th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><span class="uk-label">api</span></td>
+          <td>String</td>
+          <td>'https://api-maps.yandex.ru/2.1/?lang=ru_RU'</td>
+          <td>Ссылка на Yandex Map API</td>
+        </tr>
+        <tr>
+          <td><span class="uk-label">event</span></td>
+          <td>String | Boolean</td>
+          <td>false</td>
+          <td>Подгрузка карты по событию (click, mouseover, mouseenter и т.д.). false - карта будет подгружена при загрузке страницы</td>
+        </tr>
+        <tr>
+          <td><span class="uk-label">zoomAfter</span></td>
+          <td>String</td>
+          <td>'click'</td>
+          <td>Разрешает зум карты только по опр. событию на эл-те карты (click, mouseover, mouseenter и т.д.)</td>
+        </tr>
+        <tr>
+          <td><span class="uk-label">map</span></td>
+          <td>Object</td>
+          <td>{ center: [], zoom: 5 }</td>
+          <td>Объект с основными параметрами карты (свойства объекта идентичны свойствам параметра
+            "state" класса "Map" в <a href="http://tech.yandex.ru/maps/doc/jsapi/2.1/ref/reference/Placemark-docpage/" target="_blank">"JavaScript API Яндекс.Карт"</a>) ( Определить координаты )</td>
+        </tr>
+        <tr>
+          <td><span class="uk-label">placemark</span></td>
+          <td>Array</td>
+          <td>[{ geometry: [], properties: {}, options: {} }]</td>
+          <td>Массив меток (объектов с параметрами меток). Каждый новый объект - новая метка.
+            Параметры внутри объекта (geometry, properties, options) идентичны параметрам класса
+            "Placemark" в <a href="http://tech.yandex.ru/maps/doc/jsapi/2.1/ref/reference/Placemark-docpage/" target="_blank">"JavaScript API Яндекс.Карт"</a><br>
+            <a href="http://dimik.github.io/ymaps/examples/location-tool/" target="_blank">Определить координаты</a></td>
+        </tr>
+        <tr>
+          <td><span class="uk-label">placemarkDefaults</span></td>
+          <td>Object</td>
+          <td>{}</td>
+          <td>Опции для изменения стиля меток (по умолчанию для всех меток).
+            Свойства этого объекта аналогичны параметрам "options" внутри класса "Placemark"
+            (<a href="http://tech.yandex.ru/maps/doc/jsapi/2.1/ref/reference/Placemark-docpage/" target="_blank">см. док. "JavaScript API Яндекс.Карт"</a>).
+            Имеют наинизший приоритет, используются, если нигде не переопределены</td>
+        </tr>
+        </tbody>
+    </table>
+  </div>
+
+  <h3 class="uk-heading-line">Примеры использования параметров</h3>
+  <div class="highlight-block">
+    <div class="highlight-header">
+      <span class="circle"></span>
+      <span class="circle"></span>
+      <span class="circle"></span>
+      <svg class="svg-icon"><use xlink:href="svg/svg-sprite.svg#svg-code"></use></svg>
+    </div>
+    <div class="highlight">
+      <pre>
+        <code class="language-javascript">
+
+        $('.example').eyMaps({
+          event: 'click',
+          zoomAfter: 'mouseover'
+        });
+
+        </code>
+      </pre>
+    </div>
+  </div>
+
+</section>
+<!-- ПАРАМЕТРЫ: End -->
+
+
+
+<!-- МЕТОДЫ: Start -->
+<section class="sct">
+
+  <a id="methods" class="scroll-to" href="#methods"><h2 class="uk-heading-line"><span>Методы</span></h2></a>
+
+  <div class="table-container">
+    <table class="uk-table uk-table-divider">
+        <!-- <caption>Таблица публичных методов:</caption> -->
+        <thead>
+            <tr>
+                <th>Метод</th>
+                <th>Аргументы</th>
+                <th>Описание</th>
+            </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="uk-label">init</span></td>
+             <td>options</td>
+             <td>Инициализация</td>
+          </tr>
+          <tr>
+            <td><span class="uk-label">destroy</span></td>
+             <td>-</td>
+             <td>Деинициализация</td>
+          </tr>
+          <tr>
+            <td><span class="uk-label">reinit</span></td>
+             <td>newOpts</td>
+             <td>Реинициализация</td>
+          </tr>
+          <tr>
+            <td><span class="uk-label">load</span></td>
+             <td>-</td>
+             <td>Загрузка карты</td>
+          </tr>
+        </tbody>
+    </table>
+  </div>
+
+  <h3 class="uk-heading-line">Примеры использования методов</h3>
+  <div class="highlight-block">
+    <div class="highlight-header">
+      <span class="circle"></span>
+      <span class="circle"></span>
+      <span class="circle"></span>
+      <svg class="svg-icon"><use xlink:href="svg/svg-sprite.svg#svg-code"></use></svg>
+    </div>
+    <div class="highlight">
+      <pre>
+        <code class="language-javascript">
+
+        var options = { /* Параметры... */ },
+          newOpts = { /* Новые параметры... */ };
+
+        $('.example').eyMaps('init', options); // Инициализация с польз. пар-ми
+        $('.example').eyMaps(options); // Инициализация с польз. пар-ми
+        $('.example').eyMaps(); // Инициализация с пар-ми поум.
+        $('.example').eyMaps('destroy'); // Деинициализация
+        $('.example').eyMaps('reinit', newOpts); // Реинициализация с новыми пар-ми
+        $('.example').eyMaps('reinit'); // Реинициализация с текущими пар-ми
+        $('.example').eyMaps('load'); // Загрузка карты
+
+        </code>
+      </pre>
+    </div>
+  </div>
+
+  <p data-uk-margin class="method-controls">
+    <button data-meth="init" class="uk-button uk-button-default uk-button-small">Init</button>
+    <button data-meth="destroy" class="uk-button uk-button-default uk-button-small">Destroy</button>
+    <button data-meth="reinit" class="uk-button uk-button-default uk-button-small">Reinit</button>
+    <button data-meth="load" class="uk-button uk-button-default uk-button-small">Load</button>
+  </p>
+
+  <div class="row">
+    <div class="col-md-12">
+
+      <div class="example methods" data-eymaps='{
+        "map": { "center": [55.74787804, 37.62678159], "zoom": 5 },
+        "event": "click"
+      }' style="height: 200px"></div>
+
+    </div>
+  </div>
+
+  <script>
+    window.addEventListener('load', function () {
+
+      var exMeth = $('.example.methods');
+
+      exMeth.eyMaps({});
+
+      $('.method-controls button').on('click', function() {
+        var methName = $(this).data('meth');
+        console.log( 'Ручной вызов метода: ' + $(this).text() );
+        exMeth.eyMaps(methName);
+      });
+
+    });
+  </script>
+
+</section>
+<!-- МЕТОДЫ: End -->
+
+
+
+<!-- СОБЫТИЯ: Start -->
+<section class="sct">
+
+  <a id="events" class="scroll-to" href="#events"><h2 class="uk-heading-line"><span>События</span></h2></a>
+
+  <div class="table-container">
+    <table class="uk-table uk-table-divider">
+      <thead>
+        <tr>
+          <th>Событие</th>
+          <th>Аргументы</th>
+          <th>Описание</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="uk-label">beforeInit.eym</span></td>
+          <td>e, instance</td>
+          <td>До инициализации</td>
+        </tr>
+        <tr>
+          <td><span class="uk-label">afterInit.eym</span></td>
+          <td>e, instance</td>
+          <td>После инициализации</td>
+        </tr>
+        <tr>
+          <td><span class="uk-label">beforeLoad.eym</span></td>
+          <td>e, instance</td>
+          <td>Перед загрузкой карты</td>
+        </tr>
+        <tr>
+          <td><span class="uk-label">afterLoad.eym</span></td>
+          <td>e, instance, map</td>
+          <td>По окончанию загрузки карты</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="uk-heading-line">Примеры использования событий</h3>
+  <div class="highlight-block">
+    <div class="highlight-header">
+      <span class="circle"></span>
+      <span class="circle"></span>
+      <span class="circle"></span>
+      <svg class="svg-icon"><use xlink:href="svg/svg-sprite.svg#svg-code"></use></svg>
+    </div>
+    <div class="highlight">
+      <pre>
+        <code class="language-javascript">
+          var example = $('.example');
+
+          example.on('afterLoad.eym', function(e, instance, map) {
+            console.log( 'afterLoad: ', e, instance, map );
+            /* Аргументы:
+              e - объект события
+              instance - экземпляр класса EyMaps для элемента, на котором вызвано событие
+              map - экземпляр Яндекс карты
+            */
+          });
+
+          example.eyMaps(); // Инициализация
+        </code>
+      </pre>
+    </div>
+  </div>
+
+</section>
+<!-- СОБЫТИЯ: End -->
+
+
+
+<!-- DATA-АТРИБУТЫ: Start -->
+<section class="sct">
+
+  <a id="data-attrs" class="scroll-to" href="#data-attrs"><h2 class="uk-heading-line"><span>Data-атрибуты</span></h2></a>
+  
+  <p>Параметры в Data-атрибуте имеют наивысший приоритет. Они переопределят параметры по умолчанию, а так же пользовательские параметры заданные при инициализации. Значение атрибута - валидный JSON.</p>
+  
+  <div class="highlight-block">
+    <div class="highlight-header">
+      <span class="circle"></span>
+      <span class="circle"></span>
+      <span class="circle"></span>
+      <svg class="svg-icon"><use xlink:href="svg/svg-sprite.svg#svg-code"></use></svg>
+    </div>
+    <div class="highlight">
+      <script type="text/plain" class="language-html">
+        <div class="example" data-eymaps='{
+          "event": "click",
+          "zoomAfter": "mouseover"
+        }'></div>
+      </script>
+    </div>
+  </div>
+
+</section>
+<!-- DATA-АТРИБУТЫ: End -->
+
+
+
+<!-- ПЕРЕОПРЕДЕЛЕНИЕ-ПАРАМЕТРОВ: Start -->
+<section class="sct">
+
+  <a id="defaults" class="scroll-to" href="#defaults"><h2 class="uk-heading-line"><span>Переопределение параметров по умолчанию</span></h2></a>
+  
+  <div class="highlight-block">
+    <div class="highlight-header">
+      <span class="circle"></span>
+      <span class="circle"></span>
+      <span class="circle"></span>
+      <svg class="svg-icon"><use xlink:href="svg/svg-sprite.svg#svg-code"></use></svg>
+    </div>
+    <div class="highlight">
+      <pre>
+        <code class="language-javascript">
+          /* Изменение параметров по умолчанию (свойство): */
+          $.fn.eyMaps.defaults.event = 'click';
+
+          /* Изменение параметров по умолчанию (объект): */
+          $.fn.eyMaps.defaults = $.extend(true, {},$.fn.eyMaps.defaults, {
+            event: 'mouseover',
+            zoomAfter: 'click'
+          });
+
+          /* Далее инициализация... */
+          $('.example').eyMaps();
+        </code>
+      </pre>
+    </div>
+  </div>
+
+</section>
+<!-- ПЕРЕОПРЕДЕЛЕНИЕ-ПАРАМЕТРОВ: End -->
+
+
+
+<!-- РЕКОМЕНДАЦИИ: Start -->
+<!-- <section class="sct">
+
+  <a id="reference" class="scroll-to" href="#reference"><h2 class="uk-heading-line"><span>Рекомендации</span></h2></a>
+  
+
+</section> -->
+<!-- РЕКОМЕНДАЦИИ: End -->
+
+
+
+<!-- ПРИМЕРЫ: Start -->
+<section class="sct">
+
+  <a id="examples" class="scroll-to" href="#examples"><h2 class="uk-heading-line"><span>Примеры использования</span></h2></a>
+
+
+
+  <!-- Многократное использование карт на странице -->
+  <h3 class="uk-heading-bullet">Пример: Многократное использование карт на странице</h3>
+
+  <p>Общие параметры для всех карта под классом "example" указываются при инициализации</p>
+  
+  <div class="highlight-block">
+    <div class="highlight-header">
+      <span class="circle"></span>
+      <span class="circle"></span>
+      <span class="circle"></span>
+      <svg class="svg-icon"><use xlink:href="svg/svg-sprite.svg#svg-code"></use></svg>
+    </div>
+    <div class="highlight">
+      <pre>
+        <code class="language-javascript">
+          
+          // Инициализация
+          $('.example').eyMaps({
+            zoomAfter: 'click',
+            map: {
+              zoom: 15
+            }
+          });
+
+        </code>
+      </pre>
+    </div>
+  </div>
+
+  <p>Координаты для каждой отдельной карты лучше будет указать в Data-атрибутах</p>
+
+  <div class="highlight-block">
+    <div class="highlight-header">
+      <span class="circle"></span>
+      <span class="circle"></span>
+      <span class="circle"></span>
+      <svg class="svg-icon"><use xlink:href="svg/svg-sprite.svg#svg-code"></use></svg>
+    </div>
+    <div class="highlight">
+      <script type="text/plain" class="language-html">
+
+        <div class="example" data-eymaps='{
+          "map": { "center": [55.74787804, 37.62678159] }
+        }'></div>
+
+        <div class="example" data-eymaps='{
+          "map": { "center": [53.90062287, 27.54409266] }
+        }'></div>
+
+        <div class="example" data-eymaps='{
+          "map": { "center": [50.45064451, 30.54416500] }
+        }'></div>
+
+      </script>
+    </div>
+  </div>
+
+
+  <!-- Загрузка карт по событию -->
+  <h3 class="uk-heading-bullet">Пример: Загрузка карт по событию</h3>
+
+  <p>Загрузка карты по наведению мыши будет лучшим решением,
+    если на странице их несколько и одновременная загрузка вызывает подвисания. 
+    На блок с картой, пока она не загружена, можно назначить свой фон (например, идентичный скриншот местности).
+    Таким образом мы экономим Мбайты трафика в момент загрузки страницы
+    без потерь информативности и изменений во внешнем виде.</p>
+  
+  <h4 class="uk-heading-bullet">По наведению мыши</h4>
+
+  <p>В данном примере карта загрузится по наведению мыши на серый блок</p>
+
+  <div class="example mouseover" data-eymaps='{
+    "map": { "center": [55.74787804, 37.62678159] }
+  }'></div>
+
+  <script>
+    window.addEventListener('load', function () {
+      
+      $('.example.mouseover').eyMaps({
+        event: 'mouseover',
+        map: {
+          zoom: 10,
+          controls: []
+        }
+      });
+
+    });
+  </script>
+
+  <div class="highlight-block">
+    <div class="highlight-header">
+      <span class="circle"></span>
+      <span class="circle"></span>
+      <span class="circle"></span>
+      <svg class="svg-icon"><use xlink:href="svg/svg-sprite.svg#svg-code"></use></svg>
+    </div>
+    <div class="highlight">
+      <script type="text/plain" class="language-html">
+        
+        <div class="example" data-eymaps='{
+          "map": { "center": [55.74787804, 37.62678159] }
+        }'></div>
+
+      </script>
+    </div>
+  </div>
+
+  <div class="highlight-block">
+    <div class="highlight-header">
+      <span class="circle"></span>
+      <span class="circle"></span>
+      <span class="circle"></span>
+      <svg class="svg-icon"><use xlink:href="svg/svg-sprite.svg#svg-code"></use></svg>
+    </div>
+    <div class="highlight">
+      <pre>
+        <code class="language-javascript">
+          
+          $('.example').eyMaps({
+            event: 'mouseover'
+          });
+
+        </code>
+      </pre>
+    </div>
+  </div>
+
+  <h4 class="uk-heading-bullet">При появлении карты в области просмотра</h4>
+
+  <p>В данном примере с помощью плагина <a href="http://github.com/WahaWaher/invpdo-js" target="_blank">jQuery.InVpDo</a>
+  реализована ленивая подгрузка карты.<br>
+  Проскрольте вниз, чтобы увидеть результат.</p>
+  
+  <hr>
+
+  <div class="highlight-block">
+    <div class="highlight-header">
+      <span class="circle"></span>
+      <span class="circle"></span>
+      <span class="circle"></span>
+      <svg class="svg-icon"><use xlink:href="svg/svg-sprite.svg#svg-code"></use></svg>
+    </div>
+    <div class="highlight">
+      <script type="text/plain" class="language-html">
+        
+        <div class="example" data-eymaps='{
+          "map": { "center": [55.74787804, 37.62678159] }
+        }'></div>
+
+      </script>
+    </div>
+  </div>
+
+  <div class="highlight-block">
+    <div class="highlight-header">
+      <span class="circle"></span>
+      <span class="circle"></span>
+      <span class="circle"></span>
+      <svg class="svg-icon"><use xlink:href="svg/svg-sprite.svg#svg-code"></use></svg>
+    </div>
+    <div class="highlight">
+      <pre>
+        <code class="language-javascript">
+          
+          $('.example').eyMaps({
+            event: 'none'
+          }).inVpDo({
+            once: true,
+            onShow: function() {
+              $(this).eyMaps('load');
+            }
+          });
+
+        </code>
+      </pre>
+    </div>
+  </div>
+  
+  <p>Далеко-далеко за словесными горами в стране, гласных и согласных живут рыбные тексты. Ipsum одна собрал взгляд путь речью на берегу деревни, наш первую послушавшись маленький лучше скатился предупредила рыбными повстречался журчит букв подзаголовок курсивных точках текстами великий живет семь, прямо всеми. Собрал знаках агентство, власти большого необходимыми предупреждал текста подзаголовок рукопись всеми переписывается заглавных составитель, образ домах взобравшись использовало, безопасную семь грамматики первую. Если ему заманивший запятой жаренные букв продолжил единственное, выйти даль встретил предупреждал? Грустный правилами на берегу это гор, ведущими, свою живет. Силуэт запятой залетают диких наш путь ее большого дал букв которой журчит, ты своего что пояс своих своего послушавшись своих свое пунктуация вопроса о приставка маленький меня! Переписывается предупредила, коварный ты использовало, до своих последний то буквенных, скатился жаренные маленькая, составитель! Раз, великий несколько! Переписали деревни повстречался одна своих собрал свою, эта свой скатился грустный назад рыбными предупредила не семь за, рукопись lorem, путь, свой снова проектах возвращайся запятой! Маленькая составитель ipsum рукописи, безопасную инициал предупреждал рекламных рыбными ведущими свой, сих, которой путь предупредила выйти коварных заманивший. Взгляд над собрал, lorem необходимыми пояс вскоре коварный до рукописи своего ты заглавных даль предупреждал безорфографичный обеспечивает текстами однажды, подпоясал вопрос коварных парадигматическая что заманивший. Оксмокс, большой первую алфавит жаренные языком несколько, однажды речью! Залетают повстречался по всей использовало букв подзаголовок свой раз парадигматическая океана которое, лучше! Всеми ведущими она, имени что осталось. Возвращайся точках подпоясал предупредила всемогущая осталось последний если, ему ручеек, жаренные вершину силуэт его безорфографичный, грустный напоивший которое выйти злых над она встретил заманивший первую речью! Своих гор которой обеспечивает всемогущая подзаголовок заманивший вершину однажды вскоре послушавшись злых, пунктуация рыбными они, предложения мир, толку эта грустный маленький текст одна заголовок путь текста. Мир но ведущими обеспечивает, меня ты, ручеек над ее курсивных подзаголовок, единственное рыбными переписали бросил пунктуация океана даже однажды которое страну заголовок парадигматическая первую грамматики свое вскоре, дороге выйти.</p>
+
+  <div class="example lazy" data-eymaps='{
+    "map": { "center": [55.74787804, 37.62678159] }
+  }'></div>
+
+  <script>
+    window.addEventListener('load', function () {
+      
+      var lazyMap = $('.example.lazy');
+
+      lazyMap.eyMaps({
+        event: 'none',
+        map: {
+          zoom: 10,
+          controls: []
+        }
+      });
+
+      lazyMap.inVpDo({
+        once: true,
+        onShow: function() {
+          $(this).eyMaps('load');
+        }
+      });
+
+    });
+  </script>
+
+
+  <!-- Метки, Хинт, Балун -->
+  <h3 id="examples-marks" class="uk-heading-bullet">Пример: Метки, Хинт, Балун</h3>
+  <small>Для загрузки карты наведите на блок ниже</small>
+  <div class="example marks"></div>
+
+  <script>
+    window.addEventListener('load', function () {
+      
+      $('.example.marks').eyMaps({
+
+        event: 'mouseover',
+
+        // Центр карты
+        map: {
+          center: [55.75613947, 37.62831205],
+          zoom: 13,
+          controls: []
+        },
+
+        // Метки
+        placemark: [
+        
+          // Метка №1
+          {
+            geometry: [55.75699494, 37.65402202], // Координаты метки
+            properties: {
+              hintContent: 'Метка №1: Всплывающая подсказка.', // Содержание окна при наведении на метку
+              balloonContent: 'Метка №1 Всплывающее окно.' // Содержание окна при клике на метку
+            },
+            options: {
+              iconColor: 'black' // эта опция переопределит аналогичную опцию в параметре placemarkDefaults
+            }
+          },
+
+          // Метка №2
+          {
+            geometry: [55.75389719, 37.60303859],
+            properties: {
+              hintContent: 'Метка №2: Всплывающая подсказка.',
+              balloonContent: 'Метка №2 Всплывающее окно.'
+            }
+          }
+
+         ],
+
+         // Эти стили будут использ. по умолчанию у всех меток
+        placemarkDefaults: { 
+          preset: 'islands#dotIcon', // пресет (см. док.)
+          iconColor: 'red', // цвет маркера (см. док.)
+        },
+
+      });
+
+    });
+  </script>
+
+  <hr>
+
+  <div class="highlight-block">
+    <div class="highlight-header">
+      <span class="circle"></span>
+      <span class="circle"></span>
+      <span class="circle"></span>
+      <svg class="svg-icon"><use xlink:href="svg/svg-sprite.svg#svg-code"></use></svg>
+    </div>
+    <div class="highlight">
+      <script type="text/plain" class="language-html">
+        
+        <div class="example"></div>
+
+      </script>
+    </div>
+  </div>
+
+  <div class="highlight-block">
+    <div class="highlight-header">
+      <span class="circle"></span>
+      <span class="circle"></span>
+      <span class="circle"></span>
+      <svg class="svg-icon"><use xlink:href="svg/svg-sprite.svg#svg-code"></use></svg>
+    </div>
+    <div class="highlight">
+      <pre>
+        <code class="language-javascript">
+          
+          $('.example').eyMaps({
+
+            // Центр карты
+            map: {
+              center: [55.75613947, 37.62831205],
+              zoom: 13
+            },
+
+            // Метки
+            placemark: [
+            
+              // Метка №1
+              {
+                geometry: [55.75699494, 37.65402202], // Координаты метки
+                properties: {
+                  // Содержание окна при наведении на метку
+                  hintContent: 'Метка №1: Всплывающая подсказка.',
+                  // Содержание окна при клике на метку
+                  balloonContent: 'Метка №1 Всплывающее окно.'
+                },
+                options: {
+                  // эта опция переопределит аналогичную опцию в параметре placemarkDefaults
+                  iconColor: 'black'
+                }
+              },
+
+              // Метка №2
+              {
+                geometry: [55.75389719, 37.60303859],
+                properties: {
+                  hintContent: 'Метка №2: Всплывающая подсказка.',
+                  balloonContent: 'Метка №2 Всплывающее окно.'
+                }
+              }
+
+             ],
+
+             // Эти стили будут использ. по умолчанию у всех меток
+            placemarkDefaults: { 
+              preset: 'islands#dotIcon', // пресет (см. док.)
+              iconColor: 'red', // цвет маркера (см. док.)
+            },
+
+          });
+
+        </code>
+      </pre>
+    </div>
+  </div>
+
+</section>
+<!-- ПРИМЕРЫ: End -->
+
+
+
+<!-- ИСТОРИЯ-ИЗМЕНЕНИЙ: Start -->
+<section class="sct">
+
+  <a id="changelog" class="scroll-to" href="#changelog"><h2 class="uk-heading-line"><span>История изменений</span></h2></a>
+
+  <h3>2.0.0 - 17.01.2019</h3>
+  <ul>
+    <li>Полностью переработа структура плагина</li>
+    <li>Колбэки заменены соотв. событиями</li>
+    <li>др. исправления...</li>
+  </ul>
+
+  <h3>1.0.1 - 18.08.2018</h3>
+  <ul>
+    <li>Добавлена поддержка цепочек вызовов</li>
+    <li>Некоторые правки в readme.md</li>
+  </ul>
+  
+
+</section>
+<!-- ИСТОРИЯ-ИЗМЕНЕНИЙ: End -->
+
+
+
+<!-- ЛИЦЕНЗИЯ: Start -->
+<section class="sct">
+
+  <a id="license" class="scroll-to" href="#license"><h2 class="uk-heading-line"><span>Лицензия (MIT)</span></h2></a>
+
+  <p>Copyright (c) 2018-2019 Sergey Kravchenko</p>
+  <p>Данная лицензия разрешает лицам, получившим копию данного программного обеспечения и сопутствующей документации (в дальнейшем именуемыми «Программное Обеспечение»), безвозмездно использовать Программное Обеспечение без ограничений, включая неограниченное право на использование, копирование, изменение, слияние, публикацию, распространение, сублицензирование и/или продажу копий Программного Обеспечения, а также лицам, которым предоставляется данное Программное Обеспечение, при соблюдении следующих условий:</p>
+  <p>Указанное выше уведомление об авторском праве и данные условия должны быть включены во все копии или значимые части данного Программного Обеспечения.</p>
+  <p>ДАННОЕ ПРОГРАММНОЕ ОБЕСПЕЧЕНИЕ ПРЕДОСТАВЛЯЕТСЯ «КАК ЕСТЬ», БЕЗ КАКИХ-ЛИБО ГАРАНТИЙ, ЯВНО ВЫРАЖЕННЫХ ИЛИ ПОДРАЗУМЕВАЕМЫХ, ВКЛЮЧАЯ ГАРАНТИИ ТОВАРНОЙ ПРИГОДНОСТИ, СООТВЕТСТВИЯ ПО ЕГО КОНКРЕТНОМУ НАЗНАЧЕНИЮ И ОТСУТСТВИЯ НАРУШЕНИЙ, НО НЕ ОГРАНИЧИВАЯСЬ ИМИ. НИ В КАКОМ СЛУЧАЕ АВТОРЫ ИЛИ ПРАВООБЛАДАТЕЛИ НЕ НЕСУТ ОТВЕТСТВЕННОСТИ ПО КАКИМ-ЛИБО ИСКАМ, ЗА УЩЕРБ ИЛИ ПО ИНЫМ ТРЕБОВАНИЯМ, В ТОМ ЧИСЛЕ, ПРИ ДЕЙСТВИИ КОНТРАКТА, ДЕЛИКТЕ ИЛИ ИНОЙ СИТУАЦИИ, ВОЗНИКШИМ ИЗ-ЗА ИСПОЛЬЗОВАНИЯ ПРОГРАММНОГО ОБЕСПЕЧЕНИЯ ИЛИ ИНЫХ ДЕЙСТВИЙ С ПРОГРАММНЫМ ОБЕСПЕЧЕНИЕМ.</p>
+
+</section>
+<!-- ЛИЦЕНЗИЯ: End -->
+
+
+
+<!-- ПОДДЕРЖКА: Start -->
+<section class="sct">
+
+  <a id="support" class="scroll-to" href="#support"><h2 class="uk-heading-line"><span>Поддержка</span></h2></a>
+  Решение проблем/багов плагина, а также замечания и пожелания в <a href="https://github.com/WahaWaher/eymaps-js/issues" target="_blank">соответствующей теме</a> 
+  <p>По всем другим вопросам: <a href="mailto:wahawaher@gmail.com" title="Написать на wahawaher@gmail.com">wahawaher@gmail.com</a></p>
+
+  
+</section>
+<!-- ПОДДЕРЖКА: End -->
+
+
+
+</div>
+
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER: Start -->
+<footer class="site-footer">
+  <div class="container">
+    
+    <p class="center"><small>jQuery</small> EyMaps &mdash; 2018-2019</p>
+
+  </div>
+</footer>
+<!-- FOOTER: End -->
+
+  </div>
+
+  <!-- Back to top button -->
+  <div id="top-button"></div>
+
+  <script src="libs/jquery/dist/jquery.min.js"></script>
+  <script src="libs/easings/easings.js"></script>
+  <script src="libs/svg4everybody/dist/svg4everybody.js"></script>
+  <script src="libs/uikit/js/uikit.js"></script>
+  <script src="libs/prism/prism.js"></script>
+  <script src="js/jquery.eymaps.min.js"></script>
+  <script src="js/jquery.invpdo.min.js"></script>
+  <script src="js/common.js"></script>
+
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript" >
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+    ym(82900300, "init", {
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true,
+        webvisor:true
+    });
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/82900300" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+</body>
+</html>
